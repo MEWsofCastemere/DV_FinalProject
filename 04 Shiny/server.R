@@ -10,28 +10,20 @@ require(gridExtra)
 
 shinyServer(function(input, output) {
   
-  Low_ <- reactive({input$Low}) 
-  Medi <- reactive({input$Med}) 
-  Hi <- reactive({input$High}) 
-  LevelsKPI <- function(Damage01){
-    if (Damage01 > Hi()) return (150000)
-    if (Damage01 > Medi()) return (100000)
-    if (Damage01 > Low_()) return (50000) else return (0)
-  }
+  KPI_Low_Max_value <- reactive({input$KPI1}) 
   
-  df1 <- eventReactive(input$clicks, {data.frame(fromJSON(getURL(URLencode('skipper.cs.utexas.edu:5001/rest/native/?query="select * from ADAMDATA"'),httpheader=c(DB='jdbc:oracle:thin:@sayonara.microlab.cs.utexas.edu:1521:orcl', USER='C##cs329e_mew2795', PASS='orcl_mew2795', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), )) %>% group_by(., YEAR, STATE) %>% mutate(KPI = cumsum(DAMAGE_KPI)) %>% mutate(MAX = max(KPI)) %>% select(YEAR, STATE, MAX) %>% distinct() %>% filter(MAX > Low_()) %>% mutate(INTENSE = LevelsKPI(as.numeric(MAX))) })
+  df1 <- eventReactive(input$clicks, {data.frame(fromJSON(getURL(URLencode('skipper.cs.utexas.edu:5001/rest/native/?query="select * from ADAMDATA"'),httpheader=c(DB='jdbc:oracle:thin:@sayonara.microlab.cs.utexas.edu:1521:orcl', USER='C##cs329e_mew2795', PASS='orcl_mew2795', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), )) %>% group_by(., YEAR, STATE) %>% mutate(KPI = cumsum(DAMAGE_KPI)) %>% mutate(MAX = max(KPI)) %>% select(YEAR, STATE, MAX) %>% distinct() })
   
   output$distPlot1 <- renderPlot({             
     plot <- ggplot() + 
       coord_cartesian() + 
       scale_x_discrete() +
       scale_y_discrete() +
-      scale_fill_gradient2(low="palegreen3", mid = "forestgreen", high= "darkgreen", midpoint = 100000) +
+      scale_fill_gradient2(low="white", mid = "red", high= "darkred", midpoint = 100000) +
       labs(title=input$title) +
       labs(x=paste("Year"), y=paste("State")) +
-      theme(plot.background = element_rect(fill = 'white', colour = 'white'))+
       layer(data=df1(), 
-            mapping=aes(x= as.character(YEAR), y=STATE, fill = INTENSE), 
+            mapping=aes(x= as.character(YEAR), y=STATE, fill = MAX), 
             stat="identity", 
             stat_params=list(), 
             geom="tile",
@@ -84,20 +76,18 @@ shinyServer(function(input, output) {
   
   # Begin code for Third Tab:
   
-  df4 <- data.frame(fromJSON(getURL(URLencode('skipper.cs.utexas.edu:5001/rest/native/?query="select * from ADAMDATA where DAMAGE_CROPS is not null and DAMAGE_PROPERTY is not null"'),httpheader=c(DB='jdbc:oracle:thin:@sayonara.microlab.cs.utexas.edu:1521:orcl', USER='C##cs329e_mew2795', PASS='orcl_mew2795', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), ))
-  
-  df4 <- dfs %>% select(MAGNITUDE, DAMAGE_CROPS, DAMAGE_PROPERTY, END, BEGIN, YEAR, DEATHS_DIRECT, DEATHS_INDIRECT) %>% filter(DAMAGE_PROPERTY > 0) %>% mutate (TIME_DIFFERENCE = (abs(END - BEGIN))) %>% mutate (TOTAL_DEATHS = (DEATHS_DIRECT + DEATHS_INDIRECT)) %>% filter(TIME_DIFFERENCE > 0, TOTAL_DEATHS > 0)
+  df4 <- eventReactive(input$clicks4, {data.frame(fromJSON(getURL(URLencode('skipper.cs.utexas.edu:5001/rest/native/?query="select * from ADAMDATA where DAMAGE_CROPS is not null and DAMAGE_PROPERTY is not null"'),httpheader=c(DB='jdbc:oracle:thin:@sayonara.microlab.cs.utexas.edu:1521:orcl', USER='C##cs329e_mew2795', PASS='orcl_mew2795', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), )) %>% select(MAGNITUDE, DAMAGE_CROPS, DAMAGE_PROPERTY, END, BEGIN, YEAR, DEATHS_DIRECT, DEATHS_INDIRECT) %>% filter(DAMAGE_PROPERTY > 0) %>% mutate (TIME_DIFFERENCE = (abs(END - BEGIN))) %>% mutate (TOTAL_DEATHS = (DEATHS_DIRECT + DEATHS_INDIRECT)) %>% filter(TIME_DIFFERENCE > 0, TOTAL_DEATHS > 0)})
   
   
-  output$distPlot4 <- renderPlot({ 
-    ggplot() + 
+  output$distPlot4 <- renderPlot({
+    plot4 <- ggplot() + 
       coord_cartesian() + 
       scale_color_gradient2(mid = ("Yellow"), high="Red") +
       scale_x_continuous() +
       scale_y_continuous() +
       labs(title='Property Damage versus Time of Event') +
       labs(x="Total Time of Disaster", y=paste("Property Damage")) +
-      layer(data=dfnew, 
+      layer(data=df4(), 
             mapping=aes(as.numeric(TIME_DIFFERENCE), y=as.numeric(as.character(DAMAGE_PROPERTY)), color = (MAGNITUDE)), 
             stat="identity", 
             stat_params=list(), 
@@ -106,7 +96,6 @@ shinyServer(function(input, output) {
             #position=position_identity()
             position=position_jitter(width=0.3, height=0)
       )
-      
     plot4
   })
 })
