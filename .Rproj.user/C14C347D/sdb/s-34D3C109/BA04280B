@@ -1,0 +1,18 @@
+{
+    "contents" : "---\ntitle: \"DV_FinalProject\"\nauthor: \"Adam, JD, Malachi\"\ndate: \"December 6, 2015\"\noutput: html_document\n---\n\nFor our final project our team looked at storm data gathered by the United States weather service between 2011 and 2015.\nOur first step was to investigate the measures using a boxplot. This one was particularly interesting:\n![](./BoxPlot.jpg)\nThe relationship between the size of the storm and the damage it caused really interested us. \nNext, we applied a KPI which measured the intensity of the event (total damage over time elapsed) and compared it to the state in which it occurred. ",
+    "created" : 1449467095641.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3907284974",
+    "id" : "BA04280B",
+    "lastKnownWriteTime" : 1449467496,
+    "path" : "~/DataVisualization/DV_FinalProject/Pictures/DV_FinalProject.Rmd",
+    "project_path" : "Pictures/DV_FinalProject.Rmd",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}
