@@ -1,0 +1,18 @@
+{
+    "contents" : "#ui.R \n\nlibrary(shiny)\n\nnavbarPage(\n  title = \"Storm Event Shiny App\",\n  tabPanel(title = \"Crosstab\",\n           sidebarPanel(\n             sliderInput(\"Low\", \"Low Min:\", \n                         min = 0, max = 25000,  value = 1000),\n             sliderInput(\"Med\", \"Moderate Min:\", \n                         min = 25001, max = 100000,  value = 30000),\n             sliderInput(\"High\", \"Intense Min:\", \n                         min = 100001, max = 200000,  value = 100001),\n             textInput(inputId = \"title\", \n                       label = \"Crosstab Title\",\n                       value = \"Damage KPI by Year and Type\"),\n             actionButton(inputId = \"clicks\", \n                          label = \"Generate Plot\")\n           ),\n           \n           mainPanel(plotOutput(\"distPlot1\")\n           )\n  ),\n  tabPanel(title = \"Barchart\",\n           sidebarPanel(\n             actionButton(inputId = \"clicks2\",  label = \"Click me\")\n           ),\n           \n           mainPanel(plotOutput(\"distPlot2\")\n           )\n  ),\n  \n  tabPanel(title = \"Scatter Plot\",\n           sidebarPanel(\n             actionButton(inputId = \"clicks4\", label = \"Click me\")\n           ),\n           mainPanel(plotOutput(\"distPlot4\")\n           )\n  )\n)\n\n",
+    "created" : 1449473691620.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2613312482",
+    "id" : "6AF3E3F2",
+    "lastKnownWriteTime" : 1449473213,
+    "path" : "~/DataVisualization/DV_FinalProject/04 Shiny/ui.R",
+    "project_path" : "04 Shiny/ui.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
