@@ -6,7 +6,19 @@ output: html_document
 ---
 
 For our final project our team looked at storm data gathered by the United States weather service between 2011 and 2015.
+
 Our first step was to investigate the measures using a boxplot. This one was particularly interesting:
 ![](./BoxPlot.jpg)
+
 The relationship between the size of the storm and the damage it caused really interested us. 
-Next, we applied a KPI which measured the intensity of the event (total damage over time elapsed) and compared it to the state in which it occurred. 
+
+Next, we applied a KPI which measured the intensity of the event (total damage over time elapsed) and used it to examine the distribution of damage. 
+![](./Histogram.jpg)
+
+For our Crosstab we examined the relationship between state, year, and our Damage KPI.
+
+Before: The result of plugging in the data
+![](./CrossTabBefore.jpg)
+
+After: The result of filtering and adding parameters
+![](./CrossTabAfter.jpg)
