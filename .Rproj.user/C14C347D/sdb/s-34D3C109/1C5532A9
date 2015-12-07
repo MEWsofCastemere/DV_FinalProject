@@ -1,0 +1,18 @@
+{
+    "contents" : "",
+    "created" : 1449468788988.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1C5532A9",
+    "lastKnownWriteTime" : 1449468804,
+    "path" : "~/DataVisualization/DV_FinalProject/04 Shiny/server.R",
+    "project_path" : "04 Shiny/server.R",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
