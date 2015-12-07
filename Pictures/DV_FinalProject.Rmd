@@ -7,6 +7,8 @@ output: html_document
 
 For our final project our team looked at storm data gathered by the United States weather service between 2011 and 2015.
 
+Creating this dataset involved blending 5 seperate data tables.
+
 Our first step was to investigate the measures using a boxplot. This one was particularly interesting:
 ![](./BoxPlot.jpg)
 
