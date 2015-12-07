@@ -1,0 +1,18 @@
+{
+    "contents" : "---\ntitle: \"DV_FinalProject\"\nauthor: \"Adam, JD, Malachi\"\ndate: \"December 6, 2015\"\noutput: html_document\n---\n\nFor our final project our team looked at storm data gathered by the United States weather service between 2011 and 2015.\n\nOur first step was to investigate the measures using a boxplot. This one was particularly interesting:\n![](./BoxPlot.jpg)\n\nThe relationship between the size of the storm and the damage it caused really interested us. \n\nNext, we applied a KPI which measured the intensity of the event (total damage over time elapsed) and used it to examine the distribution of damage. \n![](./Histogram.jpg)\n\nFor our Crosstab we examined the relationship between state, year, and our Damage KPI.\n\nBefore: The result of plugging in the data\n![](./CrossTabBefore.jpg)\n\nAfter: The result of filtering and adding parameters\n![](./CrossTabAfter.jpg)\n\nA Scatter Plot was developed to show more facets and interesting features of the data. First, a calculated field was developed, taking the absolute value of the difference between the start and end time, in base 10. This time was plotted versus property damage, where property damage is greater than 0 and where direct deaths is greater than 0. The points are colored in a magnitude gradient.\n![](./ScatterPlot.png)\n\n",
+    "created" : 1449467095641.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4163401182",
+    "id" : "BA04280B",
+    "lastKnownWriteTime" : 1449469251,
+    "path" : "~/DataVisualization/DV_FinalProject/Pictures/DV_FinalProject.Rmd",
+    "project_path" : "Pictures/DV_FinalProject.Rmd",
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}

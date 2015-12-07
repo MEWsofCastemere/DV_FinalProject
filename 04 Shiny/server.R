@@ -12,18 +12,18 @@ shinyServer(function(input, output) {
   
   KPI_Low_Max_value <- reactive({input$KPI1}) 
   
-  df1 <- eventReactive(input$clicks, {data.frame(fromJSON(getURL(URLencode('skipper.cs.utexas.edu:5001/rest/native/?query="select * from ADAMDATA"'),httpheader=c(DB='jdbc:oracle:thin:@sayonara.microlab.cs.utexas.edu:1521:orcl', USER='C##cs329e_mew2795', PASS='orcl_mew2795', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE))) %>% group_by() })
+  df1 <- eventReactive(input$clicks, {data.frame(fromJSON(getURL(URLencode('skipper.cs.utexas.edu:5001/rest/native/?query="select * from ADAMDATA"'),httpheader=c(DB='jdbc:oracle:thin:@sayonara.microlab.cs.utexas.edu:1521:orcl', USER='C##cs329e_mew2795', PASS='orcl_mew2795', MODE='native_mode', MODEL='model', returnDimensions = 'False', returnFor = 'JSON'), verbose = TRUE), )) %>% group_by(., YEAR, STATE) %>% mutate(KPI = cumsum(DAMAGE_KPI)) %>% mutate(MAX = max(KPI)) %>% select(YEAR, STATE, MAX) %>% distinct() })
   
   output$distPlot1 <- renderPlot({             
     plot <- ggplot() + 
       coord_cartesian() + 
       scale_x_discrete() +
       scale_y_discrete() +
-      scale_fill_gradient2(low="white", mid = "red", high= "darkred", midpoint = 7500) +
+      scale_fill_gradient2(low="white", mid = "red", high= "darkred", midpoint = 100000) +
       labs(title=input$title) +
       labs(x=paste("Year"), y=paste("State")) +
       layer(data=df1(), 
-            mapping=aes(x=YEAR, y=STATE, fill = DAMAGE_KPI), 
+            mapping=aes(x= as.character(YEAR), y=STATE, fill = MAX), 
             stat="identity", 
             stat_params=list(), 
             geom="tile",
